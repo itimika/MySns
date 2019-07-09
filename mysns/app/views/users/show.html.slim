@@ -1,0 +1,54 @@
+
+div.user__icon
+  - if @user.image.attached?
+    p= image_tag @user.image, height: 60, width: 60
+  - else
+    img src="/user_images/#{@user.icon_image_name}" alt="user_icon" height=60 width=60
+div.user__name
+  h1 #{@user.name}のページ
+
+div.user__follow
+  p= "フォロー#{@user.followers.count}"
+div.user__followed
+  p= link_to "フォロワー#{Follower.where(follower_id: @user.id).count}", users_path
+
+- if current_user.id == @user.id
+  div.user__introduction
+    pre= @user.introduction
+  p= link_to '編集', "#{@user.name}/edit"
+- elsif current_user.followers.find_by(follower_id: @user.id)
+  p= link_to 'フォローはずす', "followers/#{@user.id}", method: :delete
+- else
+  p= link_to 'フォローする', "followers/#{@user.id}", method: :post
+
+.mb-3
+div.belt
+  div.belt__content
+    table.table.table-hover
+      tbody
+        - @posts.each do |post|
+          .mb-3
+          div.panel__content
+            div.panel__content__icon
+              - if @user.image.attached?
+                p= image_tag @user.image, height: 60, width: 60
+              - else
+                img src="/user_images/#{@user.icon_image_name}" alt="user_icon" height=60 width=60
+            div.panel__content__name
+              p= "#{@user.name}"
+            div.panel__content__post
+              p= link_to post.content, post
+            div.panel__content__images
+              - if post.images.attached?
+                - post.images.each do |image|
+                  p= image_tag image, height: 300, width: 300
+            div.panel__content__time
+              - time = Time.zone.now - post.created_at
+              - if time < 60
+                samll= '最近'
+              - elsif time < 3600
+                small= time.div(60).to_s + "分前"
+              - elsif time < 86400
+                small= time.div(3600).to_s + "時間前"
+              -else
+                small= time.div(86400).to_s + "日前"

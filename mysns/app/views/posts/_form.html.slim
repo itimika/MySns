@@ -1,0 +1,13 @@
+- if post.errors.present?
+  ul#error_explanation
+    -post.errors.full_messages.each do |message|
+      li= message
+
+= form_with model: post, local: true do |f|
+  .form-group
+    = f.label :content
+    = f.text_area :content, rows: 5, class: 'form-control', id: 'post_content'
+  .form-gorup
+    = f.label :images
+    = f.file_field :images, class: 'form-control'
+  = f.submit nil, class: 'btn btn-primary'

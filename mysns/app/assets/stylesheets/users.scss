@@ -1,0 +1,48 @@
+.panel__content {
+    background-color: #fff;
+    border: solid 1px #cecece;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.panel__content__icon {
+    text-align: left;
+    margin-bottom: 10px
+}
+
+.panel__content__icon > img {
+    float: left;
+    height: 60px;
+    width: 60px;
+}
+
+.panel__content__icon > p {
+    float: left;
+    height: 60px;
+    width: 60px;
+}
+
+.panel__content__name {
+    font-weight: bold;
+    font-size: 20px;
+    padding-left: 70px;
+}
+
+.panel__content__post {
+    padding-top: 20px;
+    font-size: 16px;
+}
+
+.panel__content__time {
+    text-align: right;
+}
+
+.belt {
+    background-color: #eee;
+}
+
+.belt__content {
+    padding: 20px 20px;
+    margin-left: auto;
+    margin-right: auto;
+}

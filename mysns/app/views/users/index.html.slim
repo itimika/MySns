@@ -1,0 +1,19 @@
+h1 ユーザー一覧
+- if @search_users
+  - @users = @search_users
+
+.mb-3
+div.belt
+  div.belt__content
+    table.table.table-hover
+      tbody
+        - @users.each do |user|
+          .mb-3
+          div.panel__content
+            div.panel__content__icon
+              - if user.image.attached?
+                p= image_tag user.image, height: 60, width: 60
+              - else
+                img src="/user_images/#{user.icon_image_name}" alt="user_icon" height=60 width=60
+            div.panel__content__name
+              p= link_to user.name, user.name

@@ -1,0 +1,34 @@
+= link_to '＋', new_post_path, class: 'btn btn-primary'
+
+.mb-3
+div.belt
+  div.belt__content
+    table.table.table-hover
+      tbody
+        - @posts.each do |post|
+          - user = User.find(post.user_id)
+          .mb-3
+          div.panel__content
+            div.panel__content__icon
+              - if user.image.attached?
+                p= image_tag user.image, height: 60, width: 60
+              - else
+                img src="/user_images/#{user.icon_image_name}" alt="user_icon" height=60 width=60
+            div.panel__content__name
+              p= link_to user.name, user.name
+            div.panel__content__post
+              p= link_to post.content, post
+            div.panel__content__images
+              - if post.images.attached?
+                - post.images.each do |image|
+                  p= image_tag image, height: 300, width: 300
+            div.panel__content__time
+              - time = Time.zone.now - post.created_at
+              - if time < 60
+                samll= '最近'
+              - elsif time < 3600
+                small= time.div(60).to_s + "分前"
+              - elsif time < 86400
+                small= time.div(3600).to_s + "時間前"
+              -else
+                small= time.div(86400).to_s + "日前"
